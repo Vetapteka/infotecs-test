@@ -9,8 +9,15 @@ body,
     color: white;
 }
 
+*::selection {
+    background-color: #CE83C8;
+    color: black;
+}
+
 body {
     background-color: #15224F;
+    cursor: url("../images/cursor.png"), auto;
+
 }
 
 #table__title {
@@ -18,6 +25,7 @@ body {
     text-transform: uppercase;
     font-weight: 700;
     border-radius: 10px;
+    cursor: inherit;
 }
 
 #table__body {
@@ -33,23 +41,43 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 3fr 1fr;
     column-gap: 10px;
-    /*background: teal;*/
 }
 
-.row hr{
+.row hr {
     visibility: hidden;
     position: absolute;
-    top:50%;
-    width: 105%;
+    top: 50%;
+    left: -10px;
+    width: 100%;
     height: 5px;
     background-color: #2F3863;
     border: none;
     border-radius: 3px;
     z-index: -1;
-
 }
-.row:hover hr{
+
+.row:hover hr {
     visibility: visible;
+}
+
+.row:active hr {
+    background-color: #8C5BEA;
+}
+
+.row::after {
+    visibility: hidden;
+    content: url("../images/edit.png");
+    position: absolute;
+    right: -30px;
+    top: 5px;
+}
+
+.row:hover::after {
+    visibility: visible;
+}
+
+.row:hover {
+    cursor: url("../images/cursor-pointer.png"), auto;
 }
 
 .item {
@@ -89,7 +117,7 @@ body {
 button {
     padding: 0;
     border: none;
-    cursor: pointer;
+    cursor: url("../images/cursor-pointer.png"), auto;
 }
 
 .item.hidden {
@@ -107,3 +135,4 @@ button {
 .eyeColor img {
     float: right;
 }
+
