@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap');
+
+body,
+* {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Comfortaa', cursive;
+    box-sizing: border-box;
+    color: white;
+}
+
+body {
+    background-color: #15224F;
+}
+
+#table__title {
+    background-color: #8C5BEA;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+#table__body {
+    width: 50vw;
+    margin-top: 5vw;
+    margin-left: 5vw;
+    display: grid;
+    grid-template-columns: 50vw;
+    row-gap: 15px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr;
+    column-gap: 10px;
+}
+
+.item {
+    font-weight: lighter;
+    background-color: #071237;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+#table__title .item {
+    background-color: #8C5BEA;
+    position: relative;
+}
+
+.control {
+    position: absolute;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    right: 10px;
+}
+
+.hide-control {
+    top: 5px;
+    background: url('../images/hidden.png') no-repeat;
+}
+
+.hide-control.view {
+    background: url('../images/view.png') no-repeat;
+}
+
+.sort-control {
+    bottom: 5px;
+    background: url('../images/sort.png') 0 0 no-repeat;
+}
+
+button {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}

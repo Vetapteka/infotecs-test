@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>InfoTecs test js SPB</title>
+    <link rel="stylesheet" href="./styles/styles.css"/>
+</head>
+<body>
+<div id="table__body">
+    <div class='row' id="table__title">
+        <div class="item">
+            <p>Имя</p>
+            <button name="firstName" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="firstName" type="button" class="control hide-control"
+                    onclick="return showHideColumn(this);"></button>
+        </div>
+        <div class="item">
+            <p>Фамилия</p>
+            <button name="lastName" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="lastName" type="button" class="control hide-control"
+                    onclick="return showHideColumn(this);"></button>
+        </div>
+        <div class="item">
+            <p>Описание</p>
+            <button name="about" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="about" type="button" class="control hide-control"
+                    onclick="return showHideColumn(this);"></button>
+        </div>
+        <div class="item">
+            <p>цвет глаз</p>
+            <button name="eyeColor" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="eyeColor" type="button" class="control hide-control"
+                    onclick="return showHideColumn(this);"></button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="./libs/clamp.min.js"></script>
+<script src="./js/app.js"></script>
+</html>
