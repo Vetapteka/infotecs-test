@@ -22,17 +22,34 @@ body {
 
 #table__body {
     width: 50vw;
-    margin-top: 5vw;
-    margin-left: 5vw;
     display: grid;
+    margin: 5vw;
     grid-template-columns: 50vw;
     row-gap: 15px;
 }
 
 .row {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 3fr 1fr;
     column-gap: 10px;
+    /*background: teal;*/
+}
+
+.row hr{
+    visibility: hidden;
+    position: absolute;
+    top:50%;
+    width: 105%;
+    height: 5px;
+    background-color: #2F3863;
+    border: none;
+    border-radius: 3px;
+    z-index: -1;
+
+}
+.row:hover hr{
+    visibility: visible;
 }
 
 .item {
@@ -75,7 +92,7 @@ button {
     cursor: pointer;
 }
 
-.item.hidden{
+.item.hidden {
     visibility: hidden;
 }
 
@@ -87,9 +104,6 @@ button {
     -webkit-line-clamp: 2;
 }
 
-.eyeColor img{
-    /*position: absolute;*/
+.eyeColor img {
     float: right;
-    /*top: .5em;*/
-    /*right: .5em;*/
 }

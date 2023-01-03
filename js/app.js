@@ -1,6 +1,6 @@
 //функция для получения данных из JSON и преобразования в массив объектов
 function getData() {
-    const requestURL = './data/copy.json';
+    const requestURL = './data/data.json';
     const xhr = new XMLHttpRequest();
     let data;
     xhr.open('GET', requestURL, false);
@@ -40,6 +40,7 @@ function dataToHTMLrows(arr) {
                 if (key !== 'rowIndex')
                     row.appendChild(createItem(data[key], key));
             }
+            row.innerHTML += '<hr>'
             return row;
         }
     )
