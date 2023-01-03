@@ -18,12 +18,15 @@ function getData() {
 function dataToHTMLrows(arr) {
 
     //TODO: убрать clamp, потому что либы запрещены
-    function createItem(text, NumberOfLines) {
+    function createItem(text, key) {
         const el = document.createElement('div');
-        el.className = 'item';
+        el.className = `item ${key}`;
         const textItem = document.createElement('p');
         textItem.textContent = text;
-        if (NumberOfLines) $clamp(textItem, {clamp: NumberOfLines});
+        if (key === 'about') $clamp(textItem, {clamp: 2});
+        if (key === 'eyeColor') {
+            el.innerHTML = `<img src="./images/eye-${text}.png" alt="\">`;
+        }
         el.appendChild(textItem);
         return el;
 
@@ -34,30 +37,17 @@ function dataToHTMLrows(arr) {
             row.className = 'row';
             row.style.order = `${index + 1}`;
             for (let key in data) {
-                switch (key) {
-                    case 'rowIndex':
-                        break;
-                    case 'about':
-                        row.appendChild(createItem(data[key], 2));
-                        break;
-                    default:
-                        row.appendChild(createItem(data[key]));
-                }
-
+                if (key !== 'rowIndex')
+                    row.appendChild(createItem(data[key], key));
             }
             return row;
         }
     )
 }
 
-//TODO: добавить функционал скрытия строк
 function showHideColumn(target) {
-    if (target.classList.contains('view')) {
-        target.classList.remove('view')
-    } else {
-        target.classList.add('view')
-    }
-
+    target.classList.toggle('hidden');
+    document.querySelectorAll(`.${target.name}`).forEach(e => e.classList.toggle('hidden'));
 }
 
 function sortBtnHandler(target) {

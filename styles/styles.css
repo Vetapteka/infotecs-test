@@ -60,7 +60,7 @@ body {
     background: url('../images/hidden.png') no-repeat;
 }
 
-.hide-control.view {
+.hide-control.hidden {
     background: url('../images/view.png') no-repeat;
 }
 
@@ -73,4 +73,23 @@ button {
     padding: 0;
     border: none;
     cursor: pointer;
+}
+
+.item.hidden{
+    visibility: hidden;
+}
+
+.about {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+}
+
+.eyeColor img{
+    /*position: absolute;*/
+    float: right;
+    /*top: .5em;*/
+    /*right: .5em;*/
 }
