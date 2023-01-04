@@ -40,10 +40,40 @@ function dataToHTMLrows(arr) {
                 if (key !== 'rowIndex')
                     row.appendChild(createItem(data[key], key));
             }
-            row.innerHTML += '<hr>'
+            row.innerHTML += '<hr class="hover-control">';
+            row.onclick = showEditPanel;
             return row;
         }
     )
+}
+
+const editPanel = document.getElementById('edit-panel__body');
+
+function showEditPanel(event) {
+
+    function getHr(el) {
+        let hr;
+        if (el.tag !== 'hr') {
+            while (!el.classList.contains('row'))
+                el = el.parentNode;
+            hr = el.getElementsByTagName('hr')[0];
+        } else {
+            hr = el;
+        }
+        return hr;
+    }
+
+    editPanel.classList.add('visible');
+
+    const hr = getHr(event.target);
+    hr.classList.add('visible');
+
+    const hrCoord = hr.getBoundingClientRect();
+    const panelCoordX = Math.ceil(hrCoord.x + hr.offsetWidth - 2);
+    const panelCoordY = Math.ceil(hrCoord.y + window.scrollY - 20);
+
+    editPanel.style.top = `${panelCoordY}px`;
+    editPanel.style.left = `${panelCoordX}px`;
 }
 
 function showHideColumn(target) {

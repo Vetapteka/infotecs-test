@@ -43,12 +43,12 @@ body {
     column-gap: 10px;
 }
 
-.row hr {
+hr {
     visibility: hidden;
     position: absolute;
     top: 50%;
-    left: -10px;
-    width: 100%;
+    left: -2%;
+    width: 110%;
     height: 5px;
     background-color: #2F3863;
     border: none;
@@ -56,12 +56,16 @@ body {
     z-index: -1;
 }
 
-.row:hover hr {
+.row:hover hr.hover-control {
     visibility: visible;
 }
 
-.row:active hr {
+.row:active hr.hover-control{
     background-color: #8C5BEA;
+}
+
+hr.visible{
+    visibility: visible;
 }
 
 .row::after {
@@ -135,4 +139,15 @@ button {
 .eyeColor img {
     float: right;
 }
+
+#edit-panel__body.visible {
+    position: absolute;
+    display: block;
+    background-color: #2F3863;
+    padding: 2rem;
+}
+
+
+
+
 

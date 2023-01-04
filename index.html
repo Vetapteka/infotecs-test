@@ -12,29 +12,41 @@
     <div class='row' id="table__title">
         <div class="item">
             <p>Имя</p>
-            <button name="firstName" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="firstName" value="1" type="button" class="control sort-control"
+                    onclick="return sortBtnHandler(this);"></button>
             <button name="firstName" type="button" class="control hide-control"
                     onclick="return showHideColumn(this);"></button>
         </div>
         <div class="item">
             <p>Фамилия</p>
-            <button name="lastName" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="lastName" value="1" type="button" class="control sort-control"
+                    onclick="return sortBtnHandler(this);"></button>
             <button name="lastName" type="button" class="control hide-control"
                     onclick="return showHideColumn(this);"></button>
         </div>
         <div class="item">
             <p>Описание</p>
-            <button name="about" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="about" value="1" type="button" class="control sort-control"
+                    onclick="return sortBtnHandler(this);"></button>
             <button name="about" type="button" class="control hide-control"
                     onclick="return showHideColumn(this);"></button>
         </div>
         <div class="item">
             <p>цвет глаз</p>
-            <button name="eyeColor" value="1" type="button" class="control sort-control" onclick="return sortBtnHandler(this);"></button>
+            <button name="eyeColor" value="1" type="button" class="control sort-control"
+                    onclick="return sortBtnHandler(this);"></button>
             <button name="eyeColor" type="button" class="control hide-control"
                     onclick="return showHideColumn(this);"></button>
         </div>
     </div>
+</div>
+<div id="edit-panel__body" class="hide">
+    <form>
+        <input type="text" required>
+        <input type="text" required>
+        <textarea required></textarea>
+        <input type="checkbox" required>
+    </form>
 </div>
 </body>
 <script src="./libs/clamp.min.js"></script>
