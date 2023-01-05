@@ -33,6 +33,33 @@ body {
     cursor: inherit;
 }
 
+#table__nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+#table__nav button {
+    background: none;
+    font-weight: lighter;
+    font-size: smaller;
+    margin-top: 10px;
+    text-transform: lowercase;
+    opacity: 40%;
+}
+
+#table__nav button:hover {
+    opacity: 80%;
+    transition: opacity 2ms linear;
+}
+
+#btn-next-page:after {
+    content: " >>"
+}
+
+#btn-prev-page:before {
+    content: "<< "
+}
+
 #table__body {
     width: 50vw;
     display: grid;
@@ -41,11 +68,20 @@ body {
     row-gap: 15px;
 }
 
+#table__rows {
+    display: inherit;
+    row-gap: inherit;
+}
+
 .row {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 3fr 1fr;
     column-gap: 10px;
+}
+
+.row.hide {
+    display: none;
 }
 
 hr {

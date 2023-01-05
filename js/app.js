@@ -32,7 +32,8 @@ function dataToHTMLrows(arr) {
 
     return arr.map((data, index) => {
             const row = document.createElement('div');
-            row.className = 'row';
+            if (index >= 10) row.classList.add('hide')
+            row.classList.add('row');
             row.style.order = `${index}`;
             for (let key in data) {
                 if (key !== 'rowIndex')
@@ -43,6 +44,103 @@ function dataToHTMLrows(arr) {
             return row;
         }
     )
+}
+
+// Преобразовываем полученные данные из JSON в массив обектов,
+// где получаем только нужные данные (имя, фамилию, описание и цвет глаз)
+// + добавляем поле index для дальнейшей сортировки
+
+const data = getData().map((el, i) => {
+    return {
+        rowIndex: i,
+        firstName: el.name.firstName,
+        lastName: el.name.lastName,
+        about: el.about,
+        eyeColor: el.eyeColor
+    }
+});
+
+// получаем массив HTML-строк и вставляем его в документ
+const rows = dataToHTMLrows(data);
+const placeToAppend = document.getElementById('table__rows');
+rows.forEach((el) => {
+    placeToAppend.appendChild(el);
+});
+
+
+//объект, позволяющий работать с value у кнопок "след/пред страница"
+const turnPageControl = {
+    curPage: 1,
+    nextPage:
+        {
+            node: document.getElementById('btn-next-page'),
+            changeValue(cur) {
+                this.node.value = cur + 1;
+            }
+        },
+    prevPage: {
+        node: document.getElementById('btn-prev-page'),
+        changeValue(cur) {
+            this.node.value = cur - 1;
+        }
+    },
+
+    initBtnHandler(handler) {
+        this.nextPage.node.onclick = handler;
+        this.prevPage.node.onclick = handler;
+    },
+
+    changePageValues(curPage) {
+        turnPageControl.curPage = curPage;
+        this.nextPage.changeValue(curPage);
+        this.prevPage.changeValue(curPage);
+    },
+
+    reset() {
+        this.nextPage.changeValue(1);
+        this.prevPage.changeValue(-1);
+        rows.forEach((row) => {
+            if (row.style.order < 10) row.classList.remove('hide');
+            else {
+                row.classList.add('hide');
+            }
+        })
+    }
+
+
+};
+
+//обработчик на кнопки перелистывания страниц
+turnPageControl.initBtnHandler(btnTurnPageHandler);
+
+function btnTurnPageHandler() {
+    //количество страниц всего
+    const pagesCount = Math.floor(data.length / 10);
+
+    //получаем номер страницы, на которую хотим перейти
+    const page = +this.value;
+    if (page === 0 || page === pagesCount + 1) {
+        return;
+    }
+
+    //будем toggle('hide') у строк текущей страницы и на странице, куда хотим перейти
+    //пример: если мы на странице 3, нажатие кнопки "след стр" => надо перейти на стр 4
+    //значит с 20 по 29 строки нужно скрыть, 30-39 показать
+    //такой алгоритм позволяет иметь один обработчик на обе кнопки
+
+    let end = (page >= pagesCount)
+        ? data.length - 1
+        : Math.max(turnPageControl.curPage, page) * 10 - 1;
+
+    let start = (Math.min(turnPageControl.curPage, page) - 1) * 10;
+
+    rows.filter(row => +row.style.order <= end && +row.style.order >= start)
+        .forEach(row => {
+            row.classList.toggle('hide');
+        })
+
+    //меняем значение value у кнопок
+    turnPageControl.changePageValues(page);
 }
 
 //обработчик на кнопку скрыть колонку
@@ -82,6 +180,8 @@ function sortBtnHandler(target) {
     равный порядкому номеру соответствующего элемента из отсортированного data.
     */
     data.forEach((el, i) => {
+        //делаем видимой только первую страницу
+        turnPageControl.reset();
         rows[el.rowIndex].style.order = i;
     })
 }
@@ -152,8 +252,6 @@ const form = document.getElementById('edit-form');
 form.addEventListener('submit', handleFormSubmit);
 
 function handleFormSubmit(event) {
-    console.log(event);
-    console.log(event.target)
     event.preventDefault();
     const dataForm = new FormData(event.target);
     const rowNode = editPanel.rowNode;
@@ -170,25 +268,7 @@ function handleFormSubmit(event) {
 }
 
 
-// Преобразовываем полученные данные из JSON в массив обектов,
-// где получаем только нужные данные (имя, фамилию, описание и цвет глаз)
-// + добавляем поле index для дальнейшей сортировки
 
-const data = getData().map((el, i) => {
-    return {
-        rowIndex: i,
-        firstName: el.name.firstName,
-        lastName: el.name.lastName,
-        about: el.about,
-        eyeColor: el.eyeColor
-    }
-});
-
-// получаем массив HTML-строк и вставляем его в документ
-const rows = dataToHTMLrows(data);
-rows.forEach((el) => {
-    document.getElementById('table__body').appendChild(el);
-});
 
 
 

@@ -31,7 +31,14 @@
             <button name="eyeColor" type="button" class="control hide-control"></button>
         </div>
     </div>
+    <div id="table__rows"></div>
+    <div id="table__nav">
+        <button id="btn-prev-page" name="prev" value="0">Предыдующая страница</button>
+        <button id="btn-next-page" name="next" value="2">Следующая страница</button>
+    </div>
+
 </div>
+
 <div id="edit-panel__body" class="hide">
     <form id="edit-form" action="">
         <label class="grid-label" for="edit-firstName">имя</label>
@@ -61,7 +68,9 @@
             <div class="btn-img radio-eye-green"></div>
         </label>
 
-        <button id="btn-cansel" class="grid-btn-control btn-cansel" type="button" onclick="editPanel.hidePanelNode()">отменить</button>
+        <button id="btn-cansel" class="grid-btn-control btn-cansel" type="button" onclick="editPanel.hidePanelNode()">
+            отменить
+        </button>
         <button class="grid-btn-control btn-submit" type="submit">сохранить</button>
     </form>
 </div>
