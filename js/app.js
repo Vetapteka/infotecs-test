@@ -19,7 +19,7 @@ function dataToHTMLrows(arr) {
     function createItem(textContent, key) {
         const el = document.createElement('div');
         el.className = `item ${key}`;
-        el.innerHTML = `<p>${textContent}</p>`
+        el.innerHTML = `<p>${textContent}</p>`;
         if (key === 'eyeColor') {
             el.innerHTML += `<img src="./images/eye-${textContent}.png" alt="\">`;
         }
@@ -27,21 +27,19 @@ function dataToHTMLrows(arr) {
     }
 
     return arr.map((data, index) => {
-            const row = document.createElement('div');
-            if (index >= 10) row.classList.add('hide')
-            row.classList.add('row');
+        const row = document.createElement('div');
+        if (index >= 10) row.classList.add('hide');
+        row.classList.add('row');
 
-            //изначально вывод строк по умолчанию так, как в  json
-            row.style.order = `${index}`;
-            for (let key in data) {
-                if (key !== 'rowIndex')
-                    row.appendChild(createItem(data[key], key));
-            }
-            row.innerHTML += '<hr class="hover-control">';
-            row.onclick = showEditPanel;
-            return row;
+        //изначально вывод строк по умолчанию так, как в  json
+        row.style.order = `${index}`;
+        for (let key in data) {
+            if (key !== 'rowIndex') row.appendChild(createItem(data[key], key));
         }
-    )
+        row.innerHTML += '<hr class="hover-control">';
+        row.onclick = showEditPanel;
+        return row;
+    });
 }
 
 // Преобразовываем полученные данные из JSON в массив обектов,
@@ -54,8 +52,8 @@ const data = getData().map((el, i) => {
         firstName: el.name.firstName,
         lastName: el.name.lastName,
         about: el.about,
-        eyeColor: el.eyeColor
-    }
+        eyeColor: el.eyeColor,
+    };
 });
 
 // получаем массив HTML-строк и вставляем его в документ
@@ -65,22 +63,20 @@ rows.forEach((el) => {
     placeToAppend.appendChild(el);
 });
 
-
 //объект, позволяющий работать с value у кнопок "след/пред страница"
 const turnPageControl = {
     curPage: 1,
-    nextPage:
-        {
-            node: document.getElementById('btn-next-page'),
-            changeValue(cur) {
-                this.node.value = cur + 1;
-            }
+    nextPage: {
+        node: document.getElementById('btn-next-page'),
+        changeValue(cur) {
+            this.node.value = cur + 1;
         },
+    },
     prevPage: {
         node: document.getElementById('btn-prev-page'),
         changeValue(cur) {
             this.node.value = cur - 1;
-        }
+        },
     },
 
     initBtnHandler(handler) {
@@ -98,14 +94,13 @@ const turnPageControl = {
         this.nextPage.changeValue(1);
         this.prevPage.changeValue(-1);
         rows.forEach((row) => {
-            if (row.style.order < 10) row.classList.remove('hide');
-            else {
+            if (+row.style.order < 10) {
+                row.classList.remove('hide');
+            } else {
                 row.classList.add('hide');
             }
-        })
-    }
-
-
+        });
+    },
 };
 
 //обработчик на кнопки перелистывания страниц
@@ -126,41 +121,45 @@ function btnTurnPageHandler() {
     //значит с 20 по 29 строки нужно скрыть, 30-39 показать
     //такой алгоритм позволяет иметь один обработчик на обе кнопки
 
-    let end = (page >= pagesCount)
-        ? data.length - 1
-        : Math.max(turnPageControl.curPage, page) * 10 - 1;
+    let end =
+        page >= pagesCount
+            ? data.length - 1
+            : Math.max(turnPageControl.curPage, page) * 10 - 1;
 
     let start = (Math.min(turnPageControl.curPage, page) - 1) * 10;
 
-    rows.filter(row => +row.style.order <= end && +row.style.order >= start)
-        .forEach(row => {
-            row.classList.toggle('hide');
-        })
+    rows.filter(
+        (row) => +row.style.order <= end && +row.style.order >= start
+    ).forEach((row) => {
+        row.classList.toggle('hide');
+    });
 
     //меняем значение value у кнопок
     turnPageControl.changePageValues(page);
 }
 
 //обработчик на кнопку скрыть колонку
-document.querySelectorAll('.hide-control').forEach(btn => {
+document.querySelectorAll('.hide-control').forEach((btn) => {
     btn.onclick = () => hideColumnBtnHandle(btn);
-})
+});
 
 function hideColumnBtnHandle(target) {
     target.classList.toggle('hidden');
-    document.querySelectorAll(`.${target.name}`).forEach(e => e.classList.toggle('hidden'));
+    document
+        .querySelectorAll(`.${target.name}`)
+        .forEach((e) => e.classList.toggle('hidden'));
 }
 
 //вешаем обработчик на кнопку сортировки
-document.querySelectorAll('.sort-control').forEach(btn => {
+document.querySelectorAll('.sort-control').forEach((btn) => {
     btn.onclick = () => sortBtnHandler(btn);
-})
+});
 
 function sortBtnHandler(target) {
     function byField(field, isAscending) {
-        return (isAscending) ?
-            (a, b) => a[field] > b[field] ? 1 : -1
-            : (a, b) => a[field] < b[field] ? 1 : -1;
+        return isAscending
+            ? (a, b) => (a[field] > b[field] ? 1 : -1)
+            : (a, b) => (a[field] < b[field] ? 1 : -1);
     }
 
     //смена направления сортировки (по возрастанию/по убыванию)
@@ -178,10 +177,13 @@ function sortBtnHandler(target) {
     равный порядкому номеру соответствующего элемента из отсортированного data.
     */
     data.forEach((el, i) => {
-        //делаем видимой только первую страницу
-        turnPageControl.reset();
         rows[el.rowIndex].style.order = i;
-    })
+    });
+    //делаем видимой только первую страницу
+    turnPageControl.reset();
+
+    //при сортировке закрываем панель редактирования
+    editPanel.hidePanelNode();
 }
 
 //панель редактирования
@@ -203,23 +205,20 @@ const editPanel = {
     },
 
     hidePanelNode() {
-        this.node.classList.remove('visible');
+        this.node?.classList.remove('visible');
         this.hideHrNode();
     },
 
     hideHrNode() {
-        this.hrNode.classList.remove('visible');
-
-    }
-}
+        this.hrNode?.classList.remove('visible');
+    },
+};
 
 //обработчик для нажатия на строку
 function showEditPanel(event) {
-
     //click на любой элемент строки обрабатывается этой функцией, поэтому ищем саму строку
     function getRow(el) {
-        while (!el.classList.contains('row'))
-            el = el.parentNode;
+        while (!el.classList.contains('row')) el = el.parentNode;
         return el;
     }
 
@@ -228,7 +227,7 @@ function showEditPanel(event) {
         const hrCoord = hr.getBoundingClientRect();
         const panelCoordX = Math.ceil(hrCoord.x + hr.offsetWidth - 2);
         const panelCoordY = Math.ceil(hrCoord.y + window.scrollY - 20);
-        return {x: panelCoordX, y: panelCoordY};
+        return { x: panelCoordX, y: panelCoordY };
     }
 
     //если панель открыта (то есть уже проинициализирована) и мы нажимаем на другую строку,
@@ -257,16 +256,12 @@ function handleFormSubmit(event) {
 
     for (const pair of dataForm.entries()) {
         data[dataIndex][pair[0]] = pair[1];
-        let rowItem = rowNode.getElementsByClassName(`${pair[0]}`)[0]
+        let rowItem = rowNode.getElementsByClassName(`${pair[0]}`)[0];
         rowItem.getElementsByTagName('p')[0].textContent = `${pair[1]}`;
-        rowItem.getElementsByTagName('img')[0]?.setAttribute('src', `../images/eye-${pair[1]}.png`);
+        rowItem
+            .getElementsByTagName('img')[0]
+            ?.setAttribute('src', `./images/eye-${pair[1]}.png`);
     }
 
     editPanel.hidePanelNode();
 }
-
-
-
-
-
-

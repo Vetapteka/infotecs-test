@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap');
 
 :root {
-    --cursor-pointer: url("../images/cursor-pointer.png");
-    --cursor-default: url("../images/cursor.png");
-    --cursor-text: url("../images/cursor-text.png");
+    --cursor-pointer: url('../images/cursor-pointer.png');
+    --cursor-default: url('../images/cursor.png');
+    --cursor-text: url('../images/cursor-text.png');
 }
 
 body,
@@ -17,17 +17,17 @@ body,
 }
 
 *::selection {
-    background-color: #CE83C8;
+    background-color: #ce83c8;
     color: black;
 }
 
 body {
-    background-color: #15224F;
+    background-color: #15224f;
     cursor: var(--cursor-default), auto;
 }
 
 #table__title {
-    background-color: #8C5BEA;
+    background-color: #8c5bea;
     text-transform: uppercase;
     font-weight: 700;
     cursor: inherit;
@@ -53,11 +53,11 @@ body {
 }
 
 #btn-next-page:after {
-    content: " >>"
+    content: ' >>';
 }
 
 #btn-prev-page:before {
-    content: "<< "
+    content: '<< ';
 }
 
 #table__body {
@@ -91,7 +91,7 @@ hr {
     left: -2%;
     width: 110%;
     height: 5px;
-    background-color: #2F3863;
+    background-color: #2f3863;
     border: none;
     border-radius: 3px;
     z-index: -1;
@@ -102,7 +102,7 @@ hr {
 }
 
 .row:active hr.hover-control {
-    background-color: #8C5BEA;
+    background-color: #8c5bea;
 }
 
 hr.visible {
@@ -111,7 +111,7 @@ hr.visible {
 
 .row::after {
     visibility: hidden;
-    content: url("../images/edit.png");
+    content: url('../images/edit.png');
     position: absolute;
     right: -30px;
     top: 5px;
@@ -132,7 +132,7 @@ hr.visible {
 }
 
 #table__title .item {
-    background-color: #8C5BEA;
+    background-color: #8c5bea;
     position: relative;
 }
 
@@ -190,7 +190,7 @@ button {
 #edit-panel__body.visible {
     position: absolute;
     display: block;
-    background-color: #2F3863;
+    background-color: #2f3863;
     padding: 1rem;
 }
 
@@ -224,7 +224,7 @@ label {
 
 input[type='text'],
 textarea {
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     border: none;
     outline: none;
     cursor: var(--cursor-text), auto;
@@ -239,11 +239,11 @@ textarea {
 }
 
 .btn-cansel {
-    background-color: #8C5BEA;
+    background-color: #8c5bea;
 }
 
 .btn-submit {
-    background-color: #CE83C8;
+    background-color: #ce83c8;
 }
 
 input[type='radio'] {
@@ -266,23 +266,21 @@ input[type='radio']:checked + .btn-img {
 }
 
 .radio-eye-blue {
-    background: url("../images/eye-blue.png") no-repeat;
+    background: url('../images/eye-blue.png') no-repeat;
 }
 
 .radio-eye-green {
-    background: url("../images/eye-green.png") no-repeat;
+    background: url('../images/eye-green.png') no-repeat;
 }
 
 .radio-eye-red {
-    background: url("../images/eye-red.png") no-repeat;
+    background: url('../images/eye-red.png') no-repeat;
 }
 
 .radio-eye-brown {
-    background: url("../images/eye-brown.png") no-repeat;
+    background: url('../images/eye-brown.png') no-repeat;
 }
 
-
-
-
-
-
+.qqq {
+    width: 100px;
+}
