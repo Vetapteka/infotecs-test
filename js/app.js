@@ -16,26 +16,24 @@ function getData() {
 
 // функция для преобразования массива объектов в HTML-элементы
 function dataToHTMLrows(arr) {
-
     //TODO: убрать clamp, потому что либы запрещены
-    function createItem(text, key) {
+    function createItem(textContent, key) {
         const el = document.createElement('div');
         el.className = `item ${key}`;
         const textItem = document.createElement('p');
-        textItem.textContent = text;
+        textItem.textContent = textContent;
         if (key === 'about') $clamp(textItem, {clamp: 2});
         if (key === 'eyeColor') {
-            el.innerHTML = `<img src="./images/eye-${text}.png" alt="\">`;
+            el.innerHTML = `<img src="./images/eye-${textContent}.png" alt="\">`;
         }
         el.appendChild(textItem);
         return el;
-
     }
 
     return arr.map((data, index) => {
             const row = document.createElement('div');
             row.className = 'row';
-            row.style.order = `${index + 1}`;
+            row.style.order = `${index}`;
             for (let key in data) {
                 if (key !== 'rowIndex')
                     row.appendChild(createItem(data[key], key));
@@ -47,39 +45,20 @@ function dataToHTMLrows(arr) {
     )
 }
 
-const editPanel = document.getElementById('edit-panel__body');
+//обработчик на кнопку скрыть колонку
+document.querySelectorAll('.hide-control').forEach(btn => {
+    btn.onclick = () => hideColumnBtnHandle(btn);
+})
 
-function showEditPanel(event) {
-
-    function getHr(el) {
-        let hr;
-        if (el.tag !== 'hr') {
-            while (!el.classList.contains('row'))
-                el = el.parentNode;
-            hr = el.getElementsByTagName('hr')[0];
-        } else {
-            hr = el;
-        }
-        return hr;
-    }
-
-    editPanel.classList.add('visible');
-
-    const hr = getHr(event.target);
-    hr.classList.add('visible');
-
-    const hrCoord = hr.getBoundingClientRect();
-    const panelCoordX = Math.ceil(hrCoord.x + hr.offsetWidth - 2);
-    const panelCoordY = Math.ceil(hrCoord.y + window.scrollY - 20);
-
-    editPanel.style.top = `${panelCoordY}px`;
-    editPanel.style.left = `${panelCoordX}px`;
-}
-
-function showHideColumn(target) {
+function hideColumnBtnHandle(target) {
     target.classList.toggle('hidden');
     document.querySelectorAll(`.${target.name}`).forEach(e => e.classList.toggle('hidden'));
 }
+
+//вешаем обработчик на кнопку сортировки
+document.querySelectorAll('.sort-control').forEach(btn => {
+    btn.onclick = () => sortBtnHandler(btn);
+})
 
 function sortBtnHandler(target) {
     function byField(field, isAscending) {
@@ -107,6 +86,89 @@ function sortBtnHandler(target) {
     })
 }
 
+//панель редактирования
+const editPanel = {
+    node: document.getElementById('edit-panel__body'),
+    rowNode: null,
+    hrNode: null,
+
+    initRowHrNodes(rowNode) {
+        this.rowNode = rowNode;
+        this.hrNode = this.rowNode.getElementsByTagName('hr')[0];
+    },
+
+    showPanelNode(coord) {
+        this.node.classList.add('visible');
+        this.hrNode.classList.add('visible');
+        this.node.style.left = `${coord.x}px`;
+        this.node.style.top = `${coord.y}px`;
+    },
+
+    hidePanelNode() {
+        this.node.classList.remove('visible');
+        this.hideHrNode();
+    },
+
+    hideHrNode() {
+        this.hrNode.classList.remove('visible');
+
+    }
+}
+
+//обработчик для нажатия на строку
+function showEditPanel(event) {
+
+    //click на любой элемент строки обрабатывается этой функцией, поэтому ищем саму строку
+    function getRow(el) {
+        while (!el.classList.contains('row'))
+            el = el.parentNode;
+        return el;
+    }
+
+    //панель должна отображаться справа от таблицы и касаться выделяющего строку <hr>
+    function calcPanelCoord(hr) {
+        const hrCoord = hr.getBoundingClientRect();
+        const panelCoordX = Math.ceil(hrCoord.x + hr.offsetWidth - 2);
+        const panelCoordY = Math.ceil(hrCoord.y + window.scrollY - 20);
+        return {x: panelCoordX, y: panelCoordY};
+    }
+
+    //если панель открыта (то есть уже проинициализирована) и мы нажимаем на другую строку,
+    //то прошлый <hr> должен скрыться
+    if (editPanel.hrNode) editPanel.hideHrNode();
+
+    //инициализируем панель, как панель отвечающую за редактирование этой строки
+    editPanel.initRowHrNodes(getRow(event.target));
+
+    const panelCoord = calcPanelCoord(editPanel.hrNode);
+    editPanel.showPanelNode(panelCoord);
+}
+
+//обработчик на отменение изменений данных
+document.getElementById('btn-cansel').onclick = () => editPanel.hidePanelNode();
+
+//обработчик на отправку формы
+const form = document.getElementById('edit-form');
+form.addEventListener('submit', handleFormSubmit);
+
+function handleFormSubmit(event) {
+    console.log(event);
+    console.log(event.target)
+    event.preventDefault();
+    const dataForm = new FormData(event.target);
+    const rowNode = editPanel.rowNode;
+    const dataIndex = rowNode.style.order;
+
+    for (const pair of dataForm.entries()) {
+        data[dataIndex][pair[0]] = pair[1];
+        let rowItem = rowNode.getElementsByClassName(`${pair[0]}`)[0]
+        rowItem.getElementsByTagName('p')[0].textContent = `${pair[1]}`;
+        rowItem.getElementsByTagName('img')[0]?.setAttribute('src', `../images/eye-${pair[1]}.png`);
+    }
+
+    editPanel.hidePanelNode();
+}
+
 
 // Преобразовываем полученные данные из JSON в массив обектов,
 // где получаем только нужные данные (имя, фамилию, описание и цвет глаз)
@@ -127,5 +189,6 @@ const rows = dataToHTMLrows(data);
 rows.forEach((el) => {
     document.getElementById('table__body').appendChild(el);
 });
+
 
 

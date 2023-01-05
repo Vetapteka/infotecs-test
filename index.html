@@ -12,40 +12,57 @@
     <div class='row' id="table__title">
         <div class="item">
             <p>Имя</p>
-            <button name="firstName" value="1" type="button" class="control sort-control"
-                    onclick="return sortBtnHandler(this);"></button>
-            <button name="firstName" type="button" class="control hide-control"
-                    onclick="return showHideColumn(this);"></button>
+            <button name="firstName" value="1" type="button" class="control sort-control"></button>
+            <button name="firstName" type="button" class="control hide-control"></button>
         </div>
         <div class="item">
             <p>Фамилия</p>
-            <button name="lastName" value="1" type="button" class="control sort-control"
-                    onclick="return sortBtnHandler(this);"></button>
-            <button name="lastName" type="button" class="control hide-control"
-                    onclick="return showHideColumn(this);"></button>
+            <button name="lastName" value="1" type="button" class="control sort-control"></button>
+            <button name="lastName" type="button" class="control hide-control"></button>
         </div>
         <div class="item">
             <p>Описание</p>
-            <button name="about" value="1" type="button" class="control sort-control"
-                    onclick="return sortBtnHandler(this);"></button>
-            <button name="about" type="button" class="control hide-control"
-                    onclick="return showHideColumn(this);"></button>
+            <button name="about" value="1" type="button" class="control sort-control"></button>
+            <button name="about" type="button" class="control hide-control"></button>
         </div>
         <div class="item">
             <p>цвет глаз</p>
-            <button name="eyeColor" value="1" type="button" class="control sort-control"
-                    onclick="return sortBtnHandler(this);"></button>
-            <button name="eyeColor" type="button" class="control hide-control"
-                    onclick="return showHideColumn(this);"></button>
+            <button name="eyeColor" value="1" type="button" class="control sort-control"></button>
+            <button name="eyeColor" type="button" class="control hide-control"></button>
         </div>
     </div>
 </div>
 <div id="edit-panel__body" class="hide">
-    <form>
-        <input type="text" required>
-        <input type="text" required>
-        <textarea required></textarea>
-        <input type="checkbox" required>
+    <form id="edit-form" action="">
+        <label class="grid-label" for="edit-firstName">имя</label>
+        <input class="grid-input" id="edit-firstName" type="text" name="firstName" required>
+
+        <label class="grid-label" for="edit-lastName">фамилия</label>
+        <input class="grid-input" id="edit-lastName" type="text" name="lastName" required>
+
+        <label class="grid-label" for="edit-about">описание</label>
+        <textarea class="grid-textarea" id="edit-about" required name="about"></textarea>
+
+        <label class="grid-label">цвет глаз</label>
+        <label for="radio-eye-blue">
+            <input id="radio-eye-blue" type="radio" name="eyeColor" value="blue">
+            <div class="btn-img radio-eye-blue"></div>
+        </label>
+        <label for="radio-eye-brown">
+            <input id="radio-eye-brown" type="radio" name="eyeColor" value="brown">
+            <div class="btn-img radio-eye-brown"></div>
+        </label>
+        <label for="radio-eye-red">
+            <input id="radio-eye-red" type="radio" name="eyeColor" value="red">
+            <div class="btn-img radio-eye-red"></div>
+        </label>
+        <label for="radio-eye-green">
+            <input id="radio-eye-green" type="radio" name="eyeColor" value="green">
+            <div class="btn-img radio-eye-green"></div>
+        </label>
+
+        <button id="btn-cansel" class="grid-btn-control btn-cansel" type="button" onclick="editPanel.hidePanelNode()">отменить</button>
+        <button class="grid-btn-control btn-submit" type="submit">сохранить</button>
     </form>
 </div>
 </body>
