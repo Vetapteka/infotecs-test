@@ -16,17 +16,13 @@ function getData() {
 
 // функция для преобразования массива объектов в HTML-элементы
 function dataToHTMLrows(arr) {
-    //TODO: убрать clamp, потому что либы запрещены
     function createItem(textContent, key) {
         const el = document.createElement('div');
         el.className = `item ${key}`;
-        const textItem = document.createElement('p');
-        textItem.textContent = textContent;
-        if (key === 'about') $clamp(textItem, {clamp: 2});
+        el.innerHTML = `<p>${textContent}</p>`
         if (key === 'eyeColor') {
-            el.innerHTML = `<img src="./images/eye-${textContent}.png" alt="\">`;
+            el.innerHTML += `<img src="./images/eye-${textContent}.png" alt="\">`;
         }
-        el.appendChild(textItem);
         return el;
     }
 
@@ -34,6 +30,8 @@ function dataToHTMLrows(arr) {
             const row = document.createElement('div');
             if (index >= 10) row.classList.add('hide')
             row.classList.add('row');
+
+            //изначально вывод строк по умолчанию так, как в  json
             row.style.order = `${index}`;
             for (let key in data) {
                 if (key !== 'rowIndex')
