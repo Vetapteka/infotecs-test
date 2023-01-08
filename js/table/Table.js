@@ -51,4 +51,10 @@ export class Table {
         });
     }
 
+    sortBy(column, isAscending) {
+        this.rows.sort(comparator(column, isAscending));
+        this.rows.forEach((row, i) => {
+            this.rowNodes[row.rowIndex].style.order = i;
+        });
+    }
 }
