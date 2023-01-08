@@ -1,0 +1,112 @@
+:root {
+    --eye-icon-size: 40px;
+    --eye-increase-size: 1.1;
+}
+
+.table-form__body {
+    display: none;
+}
+
+.table-form__body.visible {
+    position: absolute;
+    display: block;
+    background-color: var(--color-model-background);
+    padding: 1em;
+}
+
+.table-form__body form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr 4fr 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.table-form__body label {
+    vertical-align: top;
+    text-transform: uppercase;
+    cursor: inherit;
+}
+
+.table-form__body input[type='text'],
+.table-form__body textarea {
+    background-color: var(--color-model-element);
+    border: none;
+    outline: none;
+    cursor: var(--cursor-text), auto;
+    font-family: inherit;
+    color: var(--color-font-dark);
+    padding: 0.5em 0.75em;
+}
+
+/* кнопки отменить и отправить */
+.table-form__body button {
+    color: var(--color-font-dark);
+    font-weight: bold;
+}
+
+.table-form__body button.cancel {
+    background-color: var(--color-violet);
+}
+
+.table-form__body button.submit {
+    background-color: var(--color-pink);
+}
+
+/* контейнер для радио-кнопок */
+.radio__container {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* контейнер для каждой радио-кнопки */
+
+/* при нажатии на кнопку, нужно увеличить картинку глаза в (--eye-increase-size) раз,
+поэтому размер блока контейнера задается с учетом размера увеличенной картинки */
+
+.radio-item__container {
+    position: relative;
+    width: calc(var(--eye-increase-size) * 100%);
+    height: calc(var(--eye-increase-size) * 100%);
+}
+
+/* размер 100% у input-radio, чтобы при попадании на любую часть картинки, клик срабатывал */
+.radio-item__container > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* чтобы input-radio было кликабельным, используется z-index */
+.radio-item__container > input {
+    cursor: var(--cursor-pointer), auto;
+    opacity: 0;
+    z-index: 2;
+}
+
+.radio-item__container > div {
+    z-index: 1;
+}
+
+/* при выборе input-radio картинка увеличивается */
+
+/* input-radio расположено ниже в документе, чтобы при клике на него получать 
+следующий за ним элемент с картинкой и увеличивать */
+
+.radio-item__container > input:checked + div {
+    zoom: var(--eye-increase-size);
+}
+
+/* фон для input-radio */
+
+.label-blue-eye {
+    background: url('../images/eye-blue.png') no-repeat;
+}
+.label-brown-eye {
+    background: url('../images/eye-brown.png') no-repeat;
+}
+.label-green-eye {
+    background: url('../images/eye-green.png') no-repeat;
+}
+.label-red-eye {
+    background: url('../images/eye-red.png') no-repeat;
+}

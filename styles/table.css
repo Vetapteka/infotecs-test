@@ -1,0 +1,185 @@
+:root {
+    --btn-icon-size: 16px;
+}
+
+.table__body {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 1em;
+}
+
+/* это заголовок */
+.table__body > .table__row {
+    background-color: var(--color-violet);
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-font-light);
+}
+
+/* при наведении на заголовок курсор меняться не будет*/
+.table__body > .table__row:hover {
+    cursor: inherit;
+}
+
+/* в заголовке цвет элементов совпадает с цветом заголовка */
+.table__body > .table__row > div {
+    position: relative; /* для позиционирования кнопок сортировки и скрытия */
+    background-color: inherit;
+}
+
+/* это элементы строк */
+.table__row > div {
+    font-weight: lighter;
+    padding: 1em;
+    background-color: var(--color-element);
+    color: inherit;
+    cursor: inherit;
+}
+
+/* кнопка скрытия колонки добавит класс hidden элементу */
+.table__row > div .hidden {
+    visibility: hidden;
+}
+
+.row__container {
+    display: inherit;
+    row-gap: inherit;
+}
+
+.table__row {
+    position: relative; /*для позиционирования hr*/
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr;
+    column-gap: 0.75em;
+    color: var(--color-font-default);
+}
+
+/* постраничный вывод предполагает скрытие колонок с других страниц*/
+.table__row.hide {
+    display: none;
+}
+
+/* кнопки навигации по страницам*/
+.table__nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table__nav > button {
+    background: none;
+    font-weight: lighter;
+    font-size: smaller;
+    margin-top: 10px;
+    text-transform: lowercase;
+    opacity: 40%;
+}
+
+.table__nav > button:hover {
+    opacity: 80%;
+    transition: opacity 2ms linear;
+}
+
+/* для первой кнопки*/
+.table__nav button:first-child::before {
+    content: '<< ';
+}
+/* для второй кнопки*/
+.table__nav button + button:after {
+    content: ' >>';
+}
+
+.table__row:hover {
+    cursor: var(--cursor-pointer), auto;
+}
+
+/* линия под строкой, показывает, что на строку наведен курсор/строка нажата*/
+hr {
+    visibility: hidden; /*по умолчанию скрыта*/
+    position: absolute; /*для позиционирования относитально строки*/
+    top: 50%;
+    left: -2%;
+    width: 110%;
+    height: 5px;
+    background-color: var(--color-model-background);
+    border: none;
+    border-radius: 3px;
+    z-index: -1;
+}
+
+/* при наведении на строку соответствующий hr появляется*/
+.table__row:hover hr.hover-control {
+    visibility: visible;
+}
+/* когда открывается панель редактирования, hr этой строки остается видимым
+поэтому используется класс */
+hr.visible {
+    visibility: visible;
+}
+
+/* при нажатии на строку полоса меняет цвет */
+.table__row:active hr.hover-control {
+    background-color: var(--color-violet);
+}
+
+/* иконка редактирования строки, появляется при наведении на строку */
+.table__row::after {
+    visibility: hidden;
+    content: var(--edit-icon);
+    position: absolute;
+    right: -30px;
+    top: 5px;
+}
+
+.table__row:hover::after {
+    visibility: visible;
+}
+
+/* для заголовка эта иконки нет */
+.table__body > .table__row::after {
+    display: none;
+}
+
+/* кнопки заголовка*/
+
+.table__body > .table__row button {
+    position: absolute; /*позиционирование относительно item строки*/
+    display: inline-block;
+    width: var(--btn-icon-size);
+    height: var(--btn-icon-size);
+    right: 0;
+    margin: 0.5em;
+}
+
+/* кнопка скрывать колонку*/
+.table__body > .table__row .hide {
+    top: 0;
+    background: var(--hide-eye-icon) no-repeat;
+}
+
+/* когда колонки скрыты, глаз на кнопке закрывается*/
+.table__body > .table__row.hide.hidden {
+    background: var(--view-eye-icon) no-repeat;
+}
+
+/* кнопка сортировки */
+.table__body > .table__row .sort {
+    bottom: 0;
+    background: var(--sort-icon) 0 0 no-repeat;
+}
+
+/* отображение колонки about в 2 строки и многоточиe */
+.row__container > .table__row .about p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: calc(1.5em * 2);
+
+    line-height: 1.5em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.eyeColor img {
+    float: right;
+}

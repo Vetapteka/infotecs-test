@@ -1,79 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>InfoTecs test js SPB</title>
-    <link rel="stylesheet" href="./styles/styles.css"/>
-</head>
-<body>
-<div id="table__body">
-    <div class='row' id="table__title">
-        <div class="item">
-            <p>Имя</p>
-            <button name="firstName" value="1" type="button" class="control sort-control"></button>
-            <button name="firstName" type="button" class="control hide-control"></button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>InfoTecs test js SPB</title>
+        <link rel="stylesheet" href="./styles/global.css" />
+        <link rel="stylesheet" href="./styles/table.css" />
+        <link rel="stylesheet" href="./styles/modal.css" />
+    </head>
+    <body>
+        <div class="table__body">
+            <div class="table__row">
+                <div class="item">
+                    <p>Имя</p>
+                    <button
+                        name="firstName"
+                        value="asc"
+                        type="button"
+                        class="sort"
+                    ></button>
+                    <button
+                        name="firstName"
+                        type="button"
+                        class="hide"
+                    ></button>
+                </div>
+                <div class="item">
+                    <p>Фамилия</p>
+                    <button name="lastName" type="button" class="hide"></button>
+                    <button
+                        name="lastName"
+                        value="asc"
+                        type="button"
+                        class="sort"
+                    ></button>
+                </div>
+                <div class="item">
+                    <p>Описание</p>
+                    <button
+                        name="about"
+                        value="asc"
+                        type="button"
+                        class="sort"
+                    ></button>
+                    <button name="about" type="button" class="hide"></button>
+                </div>
+                <div class="item">
+                    <p>цвет глаз</p>
+                    <button
+                        name="eyeColor"
+                        value="asc"
+                        type="button"
+                        class="sort"
+                    ></button>
+                    <button name="eyeColor" type="button" class="hide"></button>
+                </div>
+            </div>
+            <div class="row__container"></div>
+            <div class="table__nav">
+                <button name="prev" value="0">Предыдующая страница</button>
+                <button name="next" value="2">Следующая страница</button>
+            </div>
         </div>
-        <div class="item">
-            <p>Фамилия</p>
-            <button name="lastName" value="1" type="button" class="control sort-control"></button>
-            <button name="lastName" type="button" class="control hide-control"></button>
+
+        <div class="table-form__body hide">
+            <form action="">
+                <label for="edit-firstName">имя</label>
+                <input
+                    class="grid-input"
+                    id="edit-firstName"
+                    type="text"
+                    name="firstName"
+                    required
+                />
+
+                <label for="edit-lastName">фамилия</label>
+                <input
+                    class="grid-input"
+                    id="edit-lastName"
+                    type="text"
+                    name="lastName"
+                    required
+                />
+
+                <label for="edit-about">описание</label>
+                <textarea
+                    class="grid-textarea"
+                    id="edit-about"
+                    required
+                    name="about"
+                ></textarea>
+
+                <label>цвет глаз</label>
+                <div class="radio__container">
+                    <div class="radio-item__container">
+                        <input type="radio" name="eyeColor" value="blue" />
+                        <div class="label-blue-eye"></div>
+                    </div>
+                    <div class="radio-item__container">
+                        <input type="radio" name="eyeColor" value="brown" />
+                        <div class="label-brown-eye"></div>
+                    </div>
+                    <div class="radio-item__container">
+                        <input type="radio" name="eyeColor" value="red" />
+                        <div class="label-red-eye"></div>
+                    </div>
+                    <div class="radio-item__container">
+                        <input type="radio" name="eyeColor" value="green" />
+                        <div class="label-green-eye"></div>
+                    </div>
+                </div>
+                <button
+                    class="cancel"
+                    type="button"
+                    onclick="editPanel.hidePanelNode()"
+                >
+                    отменить
+                </button>
+                <button class="submit" type="submit">сохранить</button>
+            </form>
         </div>
-        <div class="item">
-            <p>Описание</p>
-            <button name="about" value="1" type="button" class="control sort-control"></button>
-            <button name="about" type="button" class="control hide-control"></button>
-        </div>
-        <div class="item">
-            <p>цвет глаз</p>
-            <button name="eyeColor" value="1" type="button" class="control sort-control"></button>
-            <button name="eyeColor" type="button" class="control hide-control"></button>
-        </div>
-    </div>
-    <div id="table__rows"></div>
-    <div id="table__nav">
-        <button id="btn-prev-page" name="prev" value="0">Предыдующая страница</button>
-        <button id="btn-next-page" name="next" value="2">Следующая страница</button>
-    </div>
-
-</div>
-
-<div id="edit-panel__body" class="hide">
-    <form id="edit-form" action="">
-        <label class="grid-label" for="edit-firstName">имя</label>
-        <input class="grid-input" id="edit-firstName" type="text" name="firstName" required>
-
-        <label class="grid-label" for="edit-lastName">фамилия</label>
-        <input class="grid-input" id="edit-lastName" type="text" name="lastName" required>
-
-        <label class="grid-label" for="edit-about">описание</label>
-        <textarea class="grid-textarea" id="edit-about" required name="about"></textarea>
-
-        <label class="grid-label">цвет глаз</label>
-        <label for="radio-eye-blue">
-            <input id="radio-eye-blue" type="radio" name="eyeColor" value="blue">
-            <div class="btn-img radio-eye-blue"></div>
-        </label>
-        <label for="radio-eye-brown">
-            <input id="radio-eye-brown" type="radio" name="eyeColor" value="brown">
-            <div class="btn-img radio-eye-brown"></div>
-        </label>
-        <label for="radio-eye-red">
-            <input id="radio-eye-red" type="radio" name="eyeColor" value="red">
-            <div class="btn-img radio-eye-red"></div>
-        </label>
-        <label for="radio-eye-green">
-            <input id="radio-eye-green" type="radio" name="eyeColor" value="green">
-            <div class="btn-img radio-eye-green"></div>
-        </label>
-
-        <button id="btn-cansel" class="grid-btn-control btn-cansel" type="button" onclick="editPanel.hidePanelNode()">
-            отменить
-        </button>
-        <button class="grid-btn-control btn-submit" type="submit">сохранить</button>
-    </form>
-</div>
-</body>
-<script src="./js/app.js"></script>
+    </body>
+    <script type="module" src="./js/app.js"></script>
 </html>

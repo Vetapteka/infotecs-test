@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap');
+
+:root {
+    --cursor-pointer: url('../images/cursor-pointer.png');
+    --cursor-default: url('../images/cursor.png');
+    --cursor-text: url('../images/cursor-text.png');
+
+    --edit-icon: url('../images/edit.png');
+    --hide-eye-icon: url('../images/hidden.png');
+    --view-eye-icon: url('../images/view.png');
+    --sort-icon: url('../images/sort.png');
+
+    --eye-blue-icon: url('../images/eye-blue.png');
+    --eye-green-icon: url('../images/eye-green.png');
+    --eye-red-icon: url('../images/eye-red.png');
+    --eye-brown-icon: url('../images/eye-brown.png');
+
+    --color-background: #2b324e;
+    --color-element: #1e2339;
+    --color-model-background: #424660;
+    --color-model-element: #dcd7cb;
+    --color-pink: #d289bb;
+    --color-violet: #9665da;
+    --color-font-default: #cfcfcf;
+    --color-font-dark: black;
+    --color-font-light: white;
+}
+
+*::selection {
+    background-color: var(--color-pink);
+    color: var(--color-font-dark);
+}
+
+body,
+* {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Comfortaa', cursive;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+body {
+    background-color: var(--color-background);
+    cursor: var(--cursor-default), auto;
+    display: grid;
+    grid-template-columns: 1fr 5fr 4fr;
+    grid-template-rows: 4em 1fr 4em;
+}
+
+.table__body {
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+
+button {
+    border: none;
+    cursor: var(--cursor-pointer), auto;
+    color: var(--color-font-light);
+}
+
