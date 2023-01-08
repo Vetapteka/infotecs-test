@@ -38,7 +38,7 @@
 }
 
 /* кнопка скрытия колонки добавит класс hidden элементу */
-.table__row > div .hidden {
+.table__row > div.hidden {
     visibility: hidden;
 }
 
@@ -158,7 +158,7 @@ hr.visible {
 }
 
 /* когда колонки скрыты, глаз на кнопке закрывается*/
-.table__body > .table__row.hide.hidden {
+.table__body > .table__row .hide.view-eye{
     background: var(--view-eye-icon) no-repeat;
 }
 

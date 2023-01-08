@@ -1,11 +1,16 @@
-const useItemPattern = (name, textContent) =>
-    `<div class="${name}"><p>${textContent}</p></div>`;
+const useItemPattern = (name, textContent) => {
+    const item = document.createElement('div');
+    item.className = name;
+    item.innerHTML = `<p>${textContent}</p>`;
+    return item;
+};
 
-const useRowPattern = (content, order) => {
+const useRowPattern = (order) => {
     const row = document.createElement('div');
-    row.style.order = order;
     row.className = 'table__row';
-    row.innerHTML = content;
+    row.style.order = order;
+
+    // row.innerHTML = content;
     return row;
 };
 
