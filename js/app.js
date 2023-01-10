@@ -1,11 +1,11 @@
-import { Table } from './table/Table.js';
-import * as global from './global.js';
+import { Table } from './components/Table.js';
 import * as nodes from './nodes.js';
 
-const table = new Table(global.dataUrl, nodes.objDestruct);
-table.insertRowNodes(nodes.rowContainerNode);
 
-/* TODO: куда-то надо переместить эти функи */
+/* создает таблицу */
+const table = new Table(nodes.rowContainerNode);
+
+/* кнопка сортировки */
 const btnSortHandler = (event) => {
     const isAscending = event.target.value === 'asc';
     const columnName = event.target.name;
@@ -14,16 +14,19 @@ const btnSortHandler = (event) => {
     event.target.value = event.target.value === 'asc' ? 'desc' : 'asc';
 };
 
+/* кнопка скрытия */
 const btnHideHandler = (event) => {
     event.target.classList.toggle('view-eye');
     const columnName = event.target.name;
     table.hideColumn(columnName);
 };
 
+/* вешаем колбек на сортировку */
 nodes.tableBtnSortNodes.forEach((btn) => {
     btn.addEventListener('click', btnSortHandler);
 });
 
+/* вешаем колбек на скрытие */
 nodes.tableBtnHideNodes.forEach((btn) => {
     btn.addEventListener('click', btnHideHandler);
 });

@@ -1,10 +1,3 @@
-export const objDestruct = (obj) => ({
-    firstName: obj.name.firstName,
-    lastName: obj.name.lastName,
-    about: obj.about,
-    eyeColor: obj.eyeColor,
-});
-
 export const selectors = {
     table_body: '.table__body',
     table_row__container: '.table__body > .row__container',
@@ -15,9 +8,9 @@ export const selectors = {
 export const rowContainerNode = document.querySelector(
     selectors.table_row__container
 );
-export const tableBtnSortNode = document.querySelector(
+export const tableBtnSortNodes = document.querySelectorAll(
     selectors.table_btn_sort
 );
-export const tableBtnHideNode = document.querySelector(
+export const tableBtnHideNodes = document.querySelectorAll(
     selectors.table_btn_hide
 );
