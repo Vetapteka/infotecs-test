@@ -1,4 +1,5 @@
-import Server from '../severImitator/ServerImitator.js';
+import Server from '../serverImitator/ServerImitator.js';
+import { getEyeImgPath } from '../global.js';
 
 export class Table {
     #curPageData;
@@ -28,7 +29,7 @@ export class Table {
         );
 
         /* заполнение */
-        this.#curPageData.forEach(obj => {
+        this.#curPageData.forEach((obj) => {
             Object.entries(obj).forEach(([key, value]) => {
                 columnNodes[key].push(this.#itemPattern(key, value));
             });
@@ -62,6 +63,9 @@ export class Table {
         const item = document.createElement('div');
         item.className = name;
         item.innerHTML = `<p>${textContent}</p>`;
+        if (name === 'eyeColor')
+            item.innerHTML += `<img src="${getEyeImgPath(textContent)}"
+             alt="${textContent}">`;
         return item;
     };
 
