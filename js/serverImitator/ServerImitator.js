@@ -12,8 +12,12 @@ class ServerImitator {
             about: obj.about,
             eyeColor: obj.eyeColor,
         });
-
-        this.#DataManager = new DataManager(dataUrl, this.#objPattern, 10);
+        const pageSize = 10;
+        this.#DataManager = new DataManager(
+            dataUrl,
+            this.#objPattern,
+            pageSize
+        );
     }
 
     requestGetPage(pageNumber) {

@@ -22,13 +22,11 @@ export class Table {
     }
 
     #initColumnNodes() {
-        /* инициализация */
         const columnNodes = {};
         Object.keys(this.#curPageData[0]).forEach(
             (key) => (columnNodes[key] = [])
         );
 
-        /* заполнение */
         this.#curPageData.forEach((obj) => {
             Object.entries(obj).forEach(([key, value]) => {
                 columnNodes[key].push(this.#itemPattern(key, value));
@@ -40,8 +38,8 @@ export class Table {
 
     #initRowNodes() {
         const rowNodesSize = this.#curPageData.length;
-        var rowNodes = new Array(rowNodesSize);
-        for (var i = 0; i < rowNodesSize; rowNodes[i++] = this.#rowPattern());
+        const rowNodes = new Array(rowNodesSize);
+        for (let i = 0; i < rowNodesSize; rowNodes[i++] = this.#rowPattern());
 
         Object.values(this.#columnNodes).forEach((col) => {
             col.forEach((e, i) => {
@@ -78,12 +76,27 @@ export class Table {
 
     sortBy(column, isAscending) {
         Server.requestSortBy(column, isAscending);
-        this.#update(Server.requestGetPage(this.#curPageNumber));
+        this.#showPage(this.#curPageNumber);
     }
 
     hideColumn(column) {
         this.#columnNodes[column].forEach((item) =>
             item.classList.toggle('hidden')
         );
+    }
+
+    showNextPage() {
+        this.#showPage(this.#curPageNumber + 1);
+    }
+
+    showPrevPage() {
+        this.#showPage(this.#curPageNumber - 1);
+    }
+
+    #showPage(pageNumber) {
+        try {
+            this.#update(Server.requestGetPage(pageNumber));
+            this.#curPageNumber = pageNumber;
+        } catch (e) {}
     }
 }

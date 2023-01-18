@@ -1,10 +1,12 @@
 export class DataManager {
     #data;
     #pageSize;
+    #pageCount;
 
     constructor(url, objPattern, pageSize) {
         this.#pageSize = pageSize;
         this.#data = this.#getData(url).map((obj) => objPattern(obj));
+        this.#pageCount = Math.ceil(this.#data.length / this.#pageSize);
     }
 
     #getData(url) {
@@ -22,9 +24,14 @@ export class DataManager {
     }
 
     getPage(pageNumber) {
-        const start = (pageNumber - 1) * this.#pageSize;
-        const end = start + this.#pageSize;
-        return this.#data.slice(start, end);
+        if (1 <= pageNumber && pageNumber <= this.#pageCount) {
+            const start = (pageNumber - 1) * this.#pageSize;
+            const end = start + this.#pageSize;
+            return this.#data.slice(start, end);
+        }
+        else {
+            throw new RangeError();
+        }
     }
 
     sortBy(column, isAscending) {

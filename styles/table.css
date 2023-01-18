@@ -55,18 +55,13 @@
     color: var(--color-font-default);
 }
 
-/* постраничный вывод предполагает скрытие колонок с других страниц*/
-.table__row.hide {
-    display: none;
-}
-
 /* кнопки навигации по страницам*/
-.table__nav {
+.table__pagination {
     display: flex;
     justify-content: space-between;
 }
 
-.table__nav > button {
+.table__pagination > button {
     background: none;
     font-weight: lighter;
     font-size: smaller;
@@ -75,17 +70,17 @@
     opacity: 40%;
 }
 
-.table__nav > button:hover {
+.table__pagination > button:hover {
     opacity: 80%;
     transition: opacity 2ms linear;
 }
 
 /* для первой кнопки*/
-.table__nav button:first-child::before {
+.table__pagination button.prev::before {
     content: '<< ';
 }
 /* для второй кнопки*/
-.table__nav button + button:after {
+.table__pagination button.next::after {
     content: ' >>';
 }
 
