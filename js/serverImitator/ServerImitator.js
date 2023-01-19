@@ -27,6 +27,10 @@ class ServerImitator {
     requestSortBy(column, isAscending) {
         this.#DataManager.sortBy(column, isAscending);
     }
+
+    requestChangeDataItem(obj, index){
+        this.#DataManager.setDataItem(obj, index);
+    }
 }
 
 const Server = new ServerImitator();

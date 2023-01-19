@@ -1,7 +1,9 @@
+import { Modal } from './components/Modal.js';
 import { Table } from './components/Table.js';
 import * as nodes from './nodes.js';
 
 const table = new Table(nodes.rowContainerNode);
+const modal = new Modal(nodes.modal, table);
 
 const btnSortHandler = (event) => {
     const isAscending = event.target.value === 'asc';
@@ -18,16 +20,27 @@ const btnHideHandler = (event) => {
 };
 
 nodes.tableBtnSortNodes.forEach((btn) => {
-    btn.addEventListener('click', btnSortHandler);
+    btn.onclick = btnSortHandler;
 });
 
 nodes.tableBtnHideNodes.forEach((btn) => {
-    btn.addEventListener('click', btnHideHandler);
+    btn.onclick = btnHideHandler;
 });
 
-nodes.tableBtnPaginationNext.addEventListener('click', () => {
+nodes.tableBtnPaginationNext.onclick = () => {
     table.showNextPage();
-});
-nodes.tableBtnPaginationPrev.addEventListener('click', () => {
+};
+nodes.tableBtnPaginationPrev.onclick = () => {
     table.showPrevPage();
-});
+};
+
+nodes.modalForm.onsubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    modal.changeRow(Object.fromEntries(data.entries()));
+    modal.close();
+};
+
+nodes.modalBtnCancel.onclick = () => {
+    modal.close();
+};

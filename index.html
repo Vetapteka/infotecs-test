@@ -59,24 +59,18 @@
             </div>
             <div class="row__container"></div>
             <div class="table__pagination">
-                <button class="prev" name="prev">
-                    Предыдующая страница
-                </button>
-                <button class="next" name="next">
-                    Следующая страница
-                </button>
+                <button class="prev" name="prev">Предыдующая страница</button>
+                <button class="next" name="next">Следующая страница</button>
             </div>
         </div>
-
-        <div class="table-form__body hide">
-            <form action="">
+        <div class="table-form__body">
+            <form>
                 <label for="edit-firstName">имя</label>
                 <input
                     class="grid-input"
                     id="edit-firstName"
                     type="text"
                     name="firstName"
-                    required
                 />
 
                 <label for="edit-lastName">фамилия</label>
@@ -85,14 +79,12 @@
                     id="edit-lastName"
                     type="text"
                     name="lastName"
-                    required
                 />
 
                 <label for="edit-about">описание</label>
                 <textarea
                     class="grid-textarea"
                     id="edit-about"
-                    required
                     name="about"
                 ></textarea>
 
@@ -115,13 +107,7 @@
                         <div class="label-green-eye"></div>
                     </div>
                 </div>
-                <button
-                    class="cancel"
-                    type="button"
-                    onclick="editPanel.hidePanelNode()"
-                >
-                    отменить
-                </button>
+                <button class="cancel" type="button">отменить</button>
                 <button class="submit" type="submit">сохранить</button>
             </form>
         </div>

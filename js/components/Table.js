@@ -7,10 +7,10 @@ export class Table {
 
     #rowNodes;
     #columnNodes;
-    #whereInsertNode;
+    #tableNode;
 
     constructor(whereInsertNode) {
-        this.#whereInsertNode = whereInsertNode;
+        this.#tableNode = whereInsertNode;
         this.#update(Server.requestGetPage(this.#curPageNumber));
     }
 
@@ -39,7 +39,9 @@ export class Table {
     #initRowNodes() {
         const rowNodesSize = this.#curPageData.length;
         const rowNodes = new Array(rowNodesSize);
-        for (let i = 0; i < rowNodesSize; rowNodes[i++] = this.#rowPattern());
+        for (let i = 0; i < rowNodesSize; i++) {
+            rowNodes[i] = this.#rowPattern(i);
+        }
 
         Object.values(this.#columnNodes).forEach((col) => {
             col.forEach((e, i) => {
@@ -51,9 +53,9 @@ export class Table {
     }
 
     #insertRowNodes() {
-        this.#whereInsertNode.replaceChildren();
+        this.#tableNode.replaceChildren();
         this.#rowNodes.forEach((node) => {
-            this.#whereInsertNode.appendChild(node);
+            this.#tableNode.appendChild(node);
         });
     }
 
@@ -67,10 +69,11 @@ export class Table {
         return item;
     };
 
-    #rowPattern = () => {
+    #rowPattern = (index) => {
         const row = document.createElement('div');
         row.className = 'table__row';
         row.innerHTML = '<hr class="hover-control">';
+        row.value = index;
         return row;
     };
 
@@ -98,5 +101,21 @@ export class Table {
             this.#update(Server.requestGetPage(pageNumber));
             this.#curPageNumber = pageNumber;
         } catch (e) {}
+    }
+
+    changeRow(obj, rowIndex) {
+        const index =
+            rowIndex + (this.#curPageNumber - 1) * this.#rowNodes.length;
+        Server.requestChangeDataItem(obj, index);
+        this.#update(Server.requestGetPage(this.#curPageNumber));
+
+    }
+
+    getRow(index) {
+        return this.#curPageData[index];
+    }
+
+    getTableNode() {
+        return this.#tableNode;
     }
 }

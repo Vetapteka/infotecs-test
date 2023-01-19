@@ -23,13 +23,18 @@ export class DataManager {
         return data;
     }
 
+    #createComparator(field, isAscending) {
+        return isAscending
+            ? (a, b) => (a[field] > b[field] ? 1 : -1)
+            : (a, b) => (a[field] < b[field] ? 1 : -1);
+    }
+
     getPage(pageNumber) {
         if (1 <= pageNumber && pageNumber <= this.#pageCount) {
             const start = (pageNumber - 1) * this.#pageSize;
             const end = start + this.#pageSize;
             return this.#data.slice(start, end);
-        }
-        else {
+        } else {
             throw new RangeError();
         }
     }
@@ -37,12 +42,9 @@ export class DataManager {
     sortBy(column, isAscending) {
         const comparator = this.#createComparator(column, isAscending);
         this.#data.sort(comparator);
-        console.log(this.#data);
     }
 
-    #createComparator(field, isAscending) {
-        return isAscending
-            ? (a, b) => (a[field] > b[field] ? 1 : -1)
-            : (a, b) => (a[field] < b[field] ? 1 : -1);
+    setDataItem(obj, index) {
+        this.#data[index] = obj;
     }
 }
