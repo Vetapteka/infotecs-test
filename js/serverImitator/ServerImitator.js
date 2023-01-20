@@ -3,21 +3,27 @@ import { DataManager } from './DataManager.js';
 
 class ServerImitator {
     #DataManager;
-    #objPattern;
 
-    constructor() {
-        this.#objPattern = (obj) => ({
+    constructor(dataManager) {
+        this.#DataManager = dataManager;
+    }
+
+    static async getServerImitator() {
+        const pageSize = 10;
+        const objPattern = (obj) => ({
             firstName: obj.name.firstName,
             lastName: obj.name.lastName,
             about: obj.about,
             eyeColor: obj.eyeColor,
         });
-        const pageSize = 10;
-        this.#DataManager = new DataManager(
+
+        const dataManager = await DataManager.getDataManager(
             dataUrl,
-            this.#objPattern,
+            objPattern,
             pageSize
         );
+
+        return new ServerImitator(dataManager);
     }
 
     requestGetPage(pageNumber) {
@@ -28,10 +34,10 @@ class ServerImitator {
         this.#DataManager.sortBy(column, isAscending);
     }
 
-    requestChangeDataItem(obj, index){
+    requestChangeDataItem(obj, index) {
         this.#DataManager.setDataItem(obj, index);
     }
 }
 
-const Server = new ServerImitator();
+const Server = await ServerImitator.getServerImitator();
 export default Server;

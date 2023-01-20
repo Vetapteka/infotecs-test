@@ -3,24 +3,18 @@ export class DataManager {
     #pageSize;
     #pageCount;
 
-    constructor(url, objPattern, pageSize) {
+    constructor(data, pageSize) {
+        this.#data = data;
         this.#pageSize = pageSize;
-        this.#data = this.#getData(url).map((obj) => objPattern(obj));
         this.#pageCount = Math.ceil(this.#data.length / this.#pageSize);
     }
 
-    #getData(url) {
-        const xhr = new XMLHttpRequest();
-        let data;
-        xhr.open('GET', url, false);
-        xhr.onload = () => {
-            if (xhr.status !== 200) {
-                return;
-            }
-            data = JSON.parse(xhr.response);
-        };
-        xhr.send();
-        return data;
+    static async getDataManager(url, objPattern, pageSize) {
+        const data = await fetch(url);
+        const dataJson = await data.json();
+        const formattedData = dataJson.map((obj) => objPattern(obj));
+
+        return new DataManager(formattedData, pageSize);
     }
 
     #createComparator(field, isAscending) {
@@ -48,3 +42,5 @@ export class DataManager {
         this.#data[index] = obj;
     }
 }
+
+/* статичесая функа по возврату данных */
