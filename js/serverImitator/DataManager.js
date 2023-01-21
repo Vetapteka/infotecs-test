@@ -19,8 +19,10 @@ export class DataManager {
 
     #createComparator(field, isAscending) {
         return isAscending
-            ? (a, b) => (a[field] > b[field] ? 1 : -1)
-            : (a, b) => (a[field] < b[field] ? 1 : -1);
+            ? (a, b) =>
+                  a[field].toUpperCase() > b[field].toUpperCase() ? 1 : -1
+            : (a, b) =>
+                  a[field].toUpperCase() < b[field].toUpperCase() ? 1 : -1;
     }
 
     getPage(pageNumber) {
@@ -42,5 +44,3 @@ export class DataManager {
         this.#data[index] = obj;
     }
 }
-
-/* статичесая функа по возврату данных */

@@ -25,6 +25,7 @@
     vertical-align: top;
     text-transform: uppercase;
     cursor: inherit;
+    color: var(--color-font-default)
 }
 
 .table-form__body input[type='text'],
