@@ -1,8 +1,27 @@
 import { Modal } from './components/Modal.js';
 import { Table } from './components/Table.js';
 import * as nodes from './nodes.js';
+import { getEyeImgPath } from './global.js';
 
-const table = new Table(nodes.rowContainerNode);
+const rowPattern = (index) => {
+    const row = document.createElement('div');
+    row.className = 'table__row';
+    row.innerHTML = '<hr class="hover-control">';
+    row.value = index;
+    return row;
+};
+
+const itemPattern = (name, textContent) => {
+    const item = document.createElement('div');
+    item.className = name;
+    item.innerHTML = `<p>${textContent}</p>`;
+    if (name === 'eyeColor')
+        item.innerHTML += `<img src="${getEyeImgPath(textContent)}"
+         alt="${textContent}">`;
+    return item;
+};
+
+const table = new Table(nodes.rowContainerNode, rowPattern, itemPattern);
 const modal = new Modal(nodes.modal, table);
 
 const btnSortHandler = (event) => {

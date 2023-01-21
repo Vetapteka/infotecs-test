@@ -39,5 +39,6 @@ class ServerImitator {
     }
 }
 
+/* единственный инициализированный сервер, доступен из любого модуля */
 const Server = await ServerImitator.getServerImitator();
 export default Server;

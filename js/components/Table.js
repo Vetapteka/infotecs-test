@@ -1,5 +1,4 @@
 import Server from '../serverImitator/ServerImitator.js';
-import { getEyeImgPath } from '../global.js';
 
 export class Table {
     #curPageData;
@@ -9,8 +8,13 @@ export class Table {
     #columnNodes;
     #tableNode;
 
-    constructor(whereInsertNode) {
+    #itemPattern;
+    #rowPattern;
+
+    constructor(whereInsertNode, rowPattren, itemPattern) {
         this.#tableNode = whereInsertNode;
+        this.#itemPattern = itemPattern;
+        this.#rowPattern = rowPattren;
         this.#update(Server.requestGetPage(this.#curPageNumber));
     }
 
@@ -59,24 +63,6 @@ export class Table {
         });
     }
 
-    #itemPattern = (name, textContent) => {
-        const item = document.createElement('div');
-        item.className = name;
-        item.innerHTML = `<p>${textContent}</p>`;
-        if (name === 'eyeColor')
-            item.innerHTML += `<img src="${getEyeImgPath(textContent)}"
-             alt="${textContent}">`;
-        return item;
-    };
-
-    #rowPattern = (index) => {
-        const row = document.createElement('div');
-        row.className = 'table__row';
-        row.innerHTML = '<hr class="hover-control">';
-        row.value = index;
-        return row;
-    };
-
     sortBy(column, isAscending) {
         Server.requestSortBy(column, isAscending);
         this.#showPage(this.#curPageNumber);
@@ -108,7 +94,6 @@ export class Table {
             rowIndex + (this.#curPageNumber - 1) * this.#rowNodes.length;
         Server.requestChangeDataItem(obj, index);
         this.#update(Server.requestGetPage(this.#curPageNumber));
-
     }
 
     getRow(index) {
