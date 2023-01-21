@@ -2,6 +2,7 @@
 
 :root {
     --cursor-pointer: url('../images/cursor-pointer.png');
+    --cursor-pointer-hand: url('../images/cursor-pointer-hand.png');
     --cursor-default: url('../images/cursor.png');
     --cursor-text: url('../images/cursor-text.png');
 
@@ -21,41 +22,8 @@
     --color-model-element: #dcd7cb;
     --color-pink: #d289bb;
     --color-violet: #9665da;
+    --color-green: #90e34a;
     --color-font-default: #cfcfcf;
     --color-font-dark: black;
     --color-font-light: white;
 }
-
-*::selection {
-    background-color: var(--color-pink);
-    color: var(--color-font-dark);
-}
-
-body,
-* {
-    margin: 0;
-    font-size: 16px;
-    font-family: 'Comfortaa', cursive;
-    box-sizing: border-box;
-    border-radius: 10px;
-}
-
-body {
-    background-color: var(--color-background);
-    cursor: var(--cursor-default), auto;
-    display: grid;
-    grid-template-columns: 1fr 5fr 4fr;
-    grid-template-rows: 4em 1fr 4em;
-}
-
-.table__body {
-    grid-column-start: 2;
-    grid-row-start: 2;
-}
-
-button {
-    border: none;
-    cursor: var(--cursor-pointer), auto;
-    color: var(--color-font-light);
-}
-
